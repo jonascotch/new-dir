@@ -1,0 +1,18 @@
+name: Workflow on push
+on: [push]
+
+jobs:
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: check-out the repo
+              uses: actions/checkout@v4
+            - run: python hello.py
+    Build:
+        needs: [Test]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/upload-artifact@v4
+              with:
+                    path: .\artifacts
